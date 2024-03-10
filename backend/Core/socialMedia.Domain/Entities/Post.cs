@@ -5,7 +5,8 @@ public class Post : EntityBase
     public string Description { get; set; } = null!;
     public string? Image { get; set; }
     public int GroupId { get; set; }
-    public Group Group { get; set; } = null!;
+    public Team Team { get; set; } = null!;
+    public int TeamsId { get; set; }
     public ICollection<Comment>? Comments { get; set; }
 
 

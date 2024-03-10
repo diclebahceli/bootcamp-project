@@ -1,6 +1,7 @@
 ﻿namespace socialMedia.Domain;
 
-public class Group : EntityBase
+public class Team
+ : EntityBase
 {
     public string Name { get; set; } = null!;
     public string Description { get; set; } = null!;
@@ -8,12 +9,14 @@ public class Group : EntityBase
     public ICollection<User> Users { get; set; } = null!;
     public ICollection<Post>? Posts { get; set; }
 
-    public Group()
+    public Team
+    ()
     {
 
     }
 
-    public Group(string name, string description, string image)
+    public Team
+    (string name, string description, string image)
     {
         Name = name;
         Description = description;
