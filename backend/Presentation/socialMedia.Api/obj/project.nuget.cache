@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "dgSpecHash": "dbCNDHyXkoo4SJ5nLiK7M8j36euojd41hdM1yjd74nd+Y+eR/GVfru2LUVGw6dtQHBgFHkaEoXJ4eGxvzM9aEw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dicle\\Downloads\\startbootstrap-business-casual-gh-pages\\backend\\Presentation\\socialMedia.Api\\socialMedia.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dicle\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.15\\microsoft.aspnetcore.openapi.7.0.15.nupkg.sha512",
+    "C:\\Users\\dicle\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\dicle\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
+    "C:\\Users\\dicle\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\dicle\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\dicle\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\dicle\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
