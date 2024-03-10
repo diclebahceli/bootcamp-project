@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\dicle\\Downloads\\startbootstrap-business-casual-gh-pages\\backend\\Presentation\\socialMedia.Api\\socialMedia.Api.csproj": {}
+    "C:\\Users\\dicle\\OneDrive\\Documents\\BootcampProject\\backend\\Presentation\\socialMedia.Api\\socialMedia.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\dicle\\Downloads\\startbootstrap-business-casual-gh-pages\\backend\\Presentation\\socialMedia.Api\\socialMedia.Api.csproj": {
+    "C:\\Users\\dicle\\OneDrive\\Documents\\BootcampProject\\backend\\Presentation\\socialMedia.Api\\socialMedia.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\dicle\\Downloads\\startbootstrap-business-casual-gh-pages\\backend\\Presentation\\socialMedia.Api\\socialMedia.Api.csproj",
+        "projectUniqueName": "C:\\Users\\dicle\\OneDrive\\Documents\\BootcampProject\\backend\\Presentation\\socialMedia.Api\\socialMedia.Api.csproj",
         "projectName": "socialMedia.Api",
-        "projectPath": "C:\\Users\\dicle\\Downloads\\startbootstrap-business-casual-gh-pages\\backend\\Presentation\\socialMedia.Api\\socialMedia.Api.csproj",
+        "projectPath": "C:\\Users\\dicle\\OneDrive\\Documents\\BootcampProject\\backend\\Presentation\\socialMedia.Api\\socialMedia.Api.csproj",
         "packagesPath": "C:\\Users\\dicle\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\dicle\\Downloads\\startbootstrap-business-casual-gh-pages\\backend\\Presentation\\socialMedia.Api\\obj\\",
+        "outputPath": "C:\\Users\\dicle\\OneDrive\\Documents\\BootcampProject\\backend\\Presentation\\socialMedia.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\dicle\\AppData\\Roaming\\NuGet\\NuGet.Config"

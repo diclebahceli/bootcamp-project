@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dicle\\Downloads\\startbootstrap-business-casual-gh-pages\\backend\\Infrastructure\\socialMedia.Persistence\\socialMedia.Persistence.csproj",
+      "projectUniqueName": "C:\\Users\\dicle\\OneDrive\\Documents\\BootcampProject\\backend\\Infrastructure\\socialMedia.Persistence\\socialMedia.Persistence.csproj",
       "projectName": "socialMedia.Persistence",
-      "projectPath": "C:\\Users\\dicle\\Downloads\\startbootstrap-business-casual-gh-pages\\backend\\Infrastructure\\socialMedia.Persistence\\socialMedia.Persistence.csproj",
+      "projectPath": "C:\\Users\\dicle\\OneDrive\\Documents\\BootcampProject\\backend\\Infrastructure\\socialMedia.Persistence\\socialMedia.Persistence.csproj",
       "packagesPath": "C:\\Users\\dicle\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dicle\\Downloads\\startbootstrap-business-casual-gh-pages\\backend\\Infrastructure\\socialMedia.Persistence\\obj\\",
+      "outputPath": "C:\\Users\\dicle\\OneDrive\\Documents\\BootcampProject\\backend\\Infrastructure\\socialMedia.Persistence\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\dicle\\AppData\\Roaming\\NuGet\\NuGet.Config"

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aH9OsYYX3m43t84SWE9leVZxoOcqaFE3XGGD+UOY3euXKNle7tPqNwEtd6m7rFbbFHqlxUuFYHCO0Qwog0JWcA==",
+  "dgSpecHash": "ejiBQM6Tn9/mkDax+U1npL7/nXzCrYbWM9+H+Qi4MXVk8ElHjIDKScUv2Un2UhNpoeSvrI+ydtob0lA+Y0yefw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\dicle\\Downloads\\startbootstrap-business-casual-gh-pages\\backend\\Infrastructure\\socialMedia.Persistence\\socialMedia.Persistence.csproj",
+  "projectFilePath": "C:\\Users\\dicle\\OneDrive\\Documents\\BootcampProject\\backend\\Infrastructure\\socialMedia.Persistence\\socialMedia.Persistence.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
