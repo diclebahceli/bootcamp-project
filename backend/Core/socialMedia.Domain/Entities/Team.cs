@@ -9,15 +9,18 @@ public class Team
     public ICollection<User> Users { get; set; } = null!;
     public ICollection<Post>? Posts { get; set; }
 
-    public Team
-    ()
+    public Team()
     {
-
+        Users = new List<User>();
+        Posts = new List<Post>();
     }
 
     public Team
     (string name, string description, string image)
     {
+
+        Users = new List<User>();
+        Posts = new List<Post>();
         Name = name;
         Description = description;
         Image = image;
