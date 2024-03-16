@@ -1,0 +1,5 @@
+dotnet ef migrations add InitialCreate --project ..\socialMedia.Persistence\ --startup-project ..\..\Presentation\socialMedia.Api\
+
+
+
+dotnet ef database update  --project ..\socialMedia.Persistence\ --startup-project ..\..\Presentation\socialMedia.Api\
