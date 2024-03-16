@@ -35,4 +35,12 @@ public class TeamController : ControllerBase
         await mediator.Send(request);
         return Ok();
     }
+
+
+    [HttpDelete]
+    public async Task<IActionResult> DeleteCompetition(UpdateTeamCommandRequest request)
+    {
+        await mediator.Send(request);
+        return Ok();
+    }
 }
