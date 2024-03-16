@@ -21,4 +21,18 @@ public class TeamController : ControllerBase
         var response = await mediator.Send(new GetAllTeamsQueryRequest());
         return Ok(response);
     }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateTeam(CreateTeamCommandRequest request)
+    {
+        await mediator.Send(request);
+        return Ok();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateTeam(UpdateTeamCommandRequest request)
+    {
+        await mediator.Send(request);
+        return Ok();
+    }
 }
