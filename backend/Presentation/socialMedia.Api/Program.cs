@@ -1,3 +1,4 @@
+using socialMedia.Application;
 using socialMedia.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,9 @@ builder.Configuration
     .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
 builder.Services.AddPersistance(builder.Configuration);
+builder.Services.AddApplication();
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
