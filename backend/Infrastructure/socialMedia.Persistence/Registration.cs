@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using socialMedia.Application;
 
 namespace socialMedia.Persistence;
 
@@ -12,6 +13,9 @@ public static class Registration
         {
             options.UseSqlite(configuration.GetConnectionString("LiteConnection"));
         });
+
+        services.AddScoped(typeof(IWriteRepository<>), typeof(WriteRepository<>));
+        services.AddScoped(typeof(IReadRepository<>), typeof(ReadRepository<>));
     }
 
 }
