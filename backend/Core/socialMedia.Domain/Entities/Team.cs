@@ -4,6 +4,8 @@ public class Team
  : EntityBase
 {
     public string Name { get; set; } = null!;
+
+    public string OwnerId { get; set; } = null!;
     public string Description { get; set; } = null!;
     public string? Image { get; set; }
     public ICollection<User> Users { get; set; } = null!;

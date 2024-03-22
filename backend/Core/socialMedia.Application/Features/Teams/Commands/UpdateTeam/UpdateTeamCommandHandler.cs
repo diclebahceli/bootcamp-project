@@ -3,7 +3,7 @@ using socialMedia.Domain;
 
 namespace socialMedia.Application;
 
-public class UpdateTeamCommandHandler : IRequestHandler<UpdateTeamCommandRequest>
+public class UpdateTeamCommandHandler : IRequestHandler<UpdateTeamCommandRequest, Unit>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
@@ -12,7 +12,7 @@ public class UpdateTeamCommandHandler : IRequestHandler<UpdateTeamCommandRequest
         this._unitOfWork = unitOfWork;
         this._mapper = mapper;
     }
-    public async Task Handle(UpdateTeamCommandRequest request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(UpdateTeamCommandRequest request, CancellationToken cancellationToken)
     {
         var team = await _unitOfWork.GetReadRepository<Team>().GetAsync(x => x.Id == request.Id && !x.IsDeleted, enableTracking: true);
         var newObject = _mapper.Map<Team, UpdateTeamCommandRequest>(request);
@@ -21,6 +21,7 @@ public class UpdateTeamCommandHandler : IRequestHandler<UpdateTeamCommandRequest
         team.Image = newObject.Image;
         await _unitOfWork.GetWriteRepository<Team>().UpdateAsync(team);
         await _unitOfWork.SaveAsync();
+        return Unit.Value;
     }
 
 }

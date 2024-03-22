@@ -3,7 +3,7 @@ using socialMedia.Domain;
 
 namespace socialMedia.Application;
 
-public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommandRequest>
+public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommandRequest, Unit>
 {
     private readonly IUnitOfWork _unitOfWork;
     public CreateTeamCommandHandler(IUnitOfWork unitOfWork)
@@ -12,11 +12,13 @@ public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommandRequest
 
     }
 
-    public async Task Handle(CreateTeamCommandRequest request, CancellationToken cancellationToken)
+    public async Task<Unit> Handle(CreateTeamCommandRequest request, CancellationToken cancellationToken)
     {
-        Team team = new(request.Name, request.Description, request.Image);
+        Team team = new(request.Title, request.Description, request.Image);
         await _unitOfWork.GetWriteRepository<Team>().AddAsync(team);
         await _unitOfWork.SaveAsync();
+
+        return Unit.Value;
     }
 
 }

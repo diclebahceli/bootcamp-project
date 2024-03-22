@@ -2,10 +2,10 @@
 
 namespace socialMedia.Application;
 
-public class CreateTeamCommandRequest : IRequest
+public class CreateTeamCommandRequest : IRequest<Unit>
 {
-    public string Name { get; set; }
-    public string Description { get; set; }
+    public string Title { get; set; } = null!;
+    public string Description { get; set; } = null!;
     public string? Image { get; set; }
 
 
