@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "socialMedia.Application", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "socialMedia.Mapper", "Core\socialMedia.Mapper\socialMedia.Mapper.csproj", "{87D1D486-BEED-439C-8C09-17E49DC801B6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "socialMedia.Infrastructure", "Infrastructure\Infrastructure\socialMedia.Infrastructure.csproj", "{7FD0DD22-6EFB-4052-9368-E5913F43F4CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{87D1D486-BEED-439C-8C09-17E49DC801B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87D1D486-BEED-439C-8C09-17E49DC801B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87D1D486-BEED-439C-8C09-17E49DC801B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FD0DD22-6EFB-4052-9368-E5913F43F4CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FD0DD22-6EFB-4052-9368-E5913F43F4CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FD0DD22-6EFB-4052-9368-E5913F43F4CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FD0DD22-6EFB-4052-9368-E5913F43F4CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +61,6 @@ Global
 		{0E8E1FE5-90FD-4416-83F1-F1C8D3189DF5} = {347AC132-7BC9-4314-AE9F-FE6800AE9A66}
 		{CE2B8FF4-5000-4C21-B98A-1A7BE55BB37A} = {347AC132-7BC9-4314-AE9F-FE6800AE9A66}
 		{87D1D486-BEED-439C-8C09-17E49DC801B6} = {347AC132-7BC9-4314-AE9F-FE6800AE9A66}
+		{7FD0DD22-6EFB-4052-9368-E5913F43F4CB} = {F93EE67F-E2FF-4D31-9099-999585E0554E}
 	EndGlobalSection
 EndGlobal

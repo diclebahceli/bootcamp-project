@@ -1,6 +1,7 @@
 using socialMedia.Application;
 using socialMedia.Persistence;
 using socialMedia.Mapper;
+using socialMedia.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,7 @@ builder.Services.AddPersistance(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddCustomMapper();
 builder.Services.AddControllers();
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
