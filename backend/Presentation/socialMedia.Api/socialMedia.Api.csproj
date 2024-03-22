@@ -18,6 +18,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\socialMedia.Application\socialMedia.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\socialMedia.Persistence\socialMedia.Persistence.csproj" />
+    <ProjectReference Include="..\..\Core\socialMedia.Mapper\socialMedia.Mapper.csproj" />
   </ItemGroup>
 
 </Project>

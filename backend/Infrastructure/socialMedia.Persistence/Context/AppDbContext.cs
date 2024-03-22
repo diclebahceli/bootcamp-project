@@ -1,21 +1,25 @@
 ﻿using System.Reflection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using socialMedia.Domain;
 
 namespace socialMedia.Persistence;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext<User, Role, Guid>
 {
 
-    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+
+    public AppDbContext(DbContextOptions options) : base(options)
     {
     }
 
 
-
     public DbSet<Post> Posts { get; set; }
-    public DbSet<User> Users { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    public DbSet<Team> Teams { get; set; }
+
+
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

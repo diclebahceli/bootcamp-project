@@ -5,7 +5,7 @@ public class Team
 {
     public string Name { get; set; } = null!;
 
-    public string OwnerId { get; set; } = null!;
+    public Guid OwnerId { get; set; }
     public string Description { get; set; } = null!;
     public string? Image { get; set; }
     public ICollection<User> Users { get; set; } = null!;
