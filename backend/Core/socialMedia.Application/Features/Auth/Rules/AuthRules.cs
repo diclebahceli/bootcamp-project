@@ -27,4 +27,11 @@ public class AuthRules : BaseRules
             throw new RefreshTokenShouldNotExpiredException();
         return Task.CompletedTask;
     }
+
+    public Task EmailOrPasswordShouldBeValid(User? user)
+    {
+        if (user is null)
+            throw new EmailOrPasswordShouldBeValidException();
+        return Task.CompletedTask;
+    }
 }

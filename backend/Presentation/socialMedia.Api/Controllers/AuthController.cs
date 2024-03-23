@@ -36,4 +36,20 @@ public class AuthController : ControllerBase
         var response = await mediator.Send(request);
         return StatusCode(StatusCodes.Status200OK, response);
     }
+
+
+    [HttpPost]
+    public async Task<IActionResult> Revoke(RevokeCommandRequest request)
+    {
+        var response = await mediator.Send(request);
+        return StatusCode(StatusCodes.Status200OK);
+    }
+
+
+    [HttpPost]
+    public async Task<IActionResult> RevokeAll()
+    {
+        var response = await mediator.Send(new RevokeAllCommandRequest());
+        return StatusCode(StatusCodes.Status200OK);
+    }
 }
