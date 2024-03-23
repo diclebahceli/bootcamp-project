@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using socialMedia.Application;
 
@@ -16,6 +17,7 @@ public class TeamController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> GetAll()
     {
         var response = await mediator.Send(new GetAllTeamsQueryRequest());

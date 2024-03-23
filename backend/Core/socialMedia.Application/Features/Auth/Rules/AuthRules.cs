@@ -13,4 +13,11 @@ public class AuthRules : BaseRules
 
     }
 
+    public Task EmailOrPasswordShouldNotBeInvalid(User? user, bool checkPassword)
+    {
+        if (user is null || !checkPassword)
+            throw new InvalidEmailOrPasswordException();
+        return Task.CompletedTask;
+    }
+
 }
