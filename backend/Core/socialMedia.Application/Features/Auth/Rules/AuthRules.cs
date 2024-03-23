@@ -20,4 +20,11 @@ public class AuthRules : BaseRules
         return Task.CompletedTask;
     }
 
+
+    public Task RefreshTokenShouldNotExpired(DateTime? expirationDate)
+    {
+        if (expirationDate <= DateTime.UtcNow)
+            throw new RefreshTokenShouldNotExpiredException();
+        return Task.CompletedTask;
+    }
 }
