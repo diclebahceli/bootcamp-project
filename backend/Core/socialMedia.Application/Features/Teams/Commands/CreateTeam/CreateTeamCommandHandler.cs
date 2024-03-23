@@ -1,22 +1,23 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Http;
 using socialMedia.Domain;
 
 namespace socialMedia.Application;
 
-public class CreateTeamCommandHandler : IRequestHandler<CreateTeamCommandRequest, Unit>
+public class CreateTeamCommandHandler : BaseHandler, IRequestHandler<CreateTeamCommandRequest, Unit>
 {
-    private readonly IUnitOfWork _unitOfWork;
-    public CreateTeamCommandHandler(IUnitOfWork unitOfWork)
+
+    public CreateTeamCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
     {
-        _unitOfWork = unitOfWork;
+
 
     }
 
     public async Task<Unit> Handle(CreateTeamCommandRequest request, CancellationToken cancellationToken)
     {
         Team team = new(request.Title, request.Description, request.Image);
-        await _unitOfWork.GetWriteRepository<Team>().AddAsync(team);
-        await _unitOfWork.SaveAsync();
+        await unitOfWork.GetWriteRepository<Team>().AddAsync(team);
+        await unitOfWork.SaveAsync();
 
         return Unit.Value;
     }
