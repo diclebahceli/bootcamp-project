@@ -28,9 +28,9 @@ public class LoginCommandHandler : BaseHandler, IRequestHandler<LoginCommandRequ
     public async Task<LoginCommandResponse> Handle(LoginCommandRequest request, CancellationToken cancellationToken)
     {
         User user = await userManager.FindByEmailAsync(request.Email);
-        bool checPassword = await userManager.CheckPasswordAsync(user, request.Password);
+        bool checkPassword = await userManager.CheckPasswordAsync(user, request.Password);
 
-        await authRules.EmailOrPasswordShouldNotBeInvalid(user, checPassword);
+        await authRules.EmailOrPasswordShouldNotBeInvalid(user, checkPassword);
         IList<string> roles = await userManager.GetRolesAsync(user);
         JwtSecurityToken token = await tokenService.CreateToken(user, roles);
         string refreshToken = tokenService.GenerateRefreshToken();
