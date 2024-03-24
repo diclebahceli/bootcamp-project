@@ -12,7 +12,7 @@ export default async function CommunicationDetailPage({
       <h1 className="my-4">Communication Detail Page</h1>
       <div className="row">
         {Posts.map((post) => (
-          <Post key={post.id} {...post} />
+          <Post post={post} key={post.id} {...post} />
         ))}
       </div>
     </div>

@@ -1,7 +1,7 @@
 export interface Post {
-  id: number | string;
+  id: number;
   Description: string;
   Image?: string;
   CommunityId: string;
-  userId: string | number;
+  userId: number;
 }

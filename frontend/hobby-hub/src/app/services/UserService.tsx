@@ -34,3 +34,13 @@ const users: User[] = [
 export async function GetAllUsers(): Promise<User[]> {
   return users;
 }
+
+export async function GetUserById(id: number): Promise<User> {
+  // console.log(typeof(id));
+  // console.log(typeof(competitions[0].id));
+  const user = await users.find((usr) => usr.id == id);
+  if (user) {
+    return user;
+  }
+  throw new Error(`User with id ${id} not found`);
+}

@@ -1,7 +1,8 @@
 import { Post } from "../Models/post";
+import { GetUserById } from "../services/UserService";
 
-export default function Post({ post }: { post: Post }) {
-  const userName = getUserById(post.userId).name;
+export default async function Post({ post }: { post: Post }) {
+  const userName = (await GetUserById(post.userId)).name;
   return (
     <div className="col-md-4 mb-4">
       <div className="card">
