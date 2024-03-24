@@ -1,35 +1,33 @@
+"use client";
 import Card from "@/app/Components/card";
+import { Community } from "@/app/Models/community";
 
-const HomePage = () => {
+const Home = () => {
   // Sample card data
-  const cards = [
+  const cards: Community[] = [
     {
       id: 1,
       image: "",
       title: "Card 1",
       description: "asd",
-      buttonText: "Join",
     },
     {
       id: 2,
       image: "",
       title: "Card 2",
       description: "asd",
-      buttonText: "Join",
     },
     {
       id: 3,
       image: "",
       title: "Card 3",
       description: "asd",
-      buttonText: "Join",
     },
     {
       id: 4,
       image: "",
       title: "Card 4",
       description: "asd",
-      buttonText: "Join",
     },
     // Add more card data as needed
   ];
@@ -39,10 +37,10 @@ const HomePage = () => {
       <h1 className="my-4">Welcome to Hobby Hub</h1>
       <div className="row">
         {cards.map((card) => (
-          <Card key={card.id} {...card} />
+          <Card community={card} key={card.id} buttonText="join" {...card} />
         ))}
       </div>
     </div>
   );
 };
-export default HomePage;
+export default Home;
