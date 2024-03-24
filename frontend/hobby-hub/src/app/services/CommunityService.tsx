@@ -40,3 +40,50 @@ export async function GetCompetitionById(id: number): Promise<Community> {
   }
   throw new Error(`Competition with id ${id} not found`);
 }
+
+export async function GetCommunityByUserId(
+  userId: number
+): Promise<Community[]> {
+  const competition = await communities.filter((comp) => comp.id == userId);
+  if (competition) {
+    return competition;
+  }
+  throw new Error(`Competition with id ${userId} not found`);
+}
+
+export async function GetCommunityByTitle(title: string): Promise<Community> {
+  const community = await communities.find((comp) => comp.title == title);
+  if (community) {
+    return community;
+  }
+  throw new Error(`Competition with id ${title} not found`);
+}
+
+export async function AddCommunity(community: Community): Promise<Community> {
+  communities.push(community);
+  return community;
+}
+
+export async function UpdateCommunity(
+  community: Community
+): Promise<Community> {
+  const index = communities.findIndex((comp) => comp.id == community.id);
+  if (index != -1) {
+    communities[index] = community;
+    return community;
+  }
+  throw new Error(`Community with id ${community.id} not found
+
+`);
+}
+
+export async function DeleteCommunity(id: number): Promise<void> {
+  const index = communities.findIndex((comp) => comp.id == id);
+  if (index != -1) {
+    communities.splice(index, 1);
+    return;
+  }
+  throw new Error(`Community with id ${id} not found`);
+}
+
+// Path: hobby-hub/src/app/services/CommunityService.tsx
