@@ -13,12 +13,10 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasMany(u => u.Posts)
             .WithOne(p => p.User)
-            .HasForeignKey(p => p.UserId)
             .HasForeignKey(p => p.UserId);
 
         builder.HasMany(u => u.Comments)
             .WithOne(c => c.User)
-            .HasForeignKey(c => c.UserId)
             .HasForeignKey(c => c.UserId);
     }
 }

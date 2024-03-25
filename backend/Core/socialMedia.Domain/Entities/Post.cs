@@ -10,17 +10,19 @@ public class Post : EntityBase
     public Guid UserId { get; set; }
     public User User { get; set; } = null!;
     public ICollection<Comment> Comments { get; set; }
-
+    public ICollection<Like> Likes { get; set; }
 
     public Post()
     {
         Comments = new List<Comment>();
+        Likes = new List<Like>();
     }
 
     public Post(Guid UserId, string description, string image, DateTime createdDate, int groupId)
     {
 
         Comments = new List<Comment>();
+        Likes = new List<Like>();
         this.UserId = UserId;
         Description = description;
         Image = image;

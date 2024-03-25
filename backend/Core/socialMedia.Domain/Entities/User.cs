@@ -9,6 +9,8 @@ public class User : IdentityUser<Guid>
     public ICollection<Post> Posts { get; set; }
     public ICollection<Comment> Comments { get; set; }
 
+    public ICollection<Like> Likes { get; set; }
+
     public string FullName { get; set; }
     public string? RefreshToken { get; set; }
     public DateTime? RefreshTokenExpiryTime { get; set; }
@@ -19,6 +21,7 @@ public class User : IdentityUser<Guid>
         Teams = new List<Team>();
         Posts = new List<Post>();
         Comments = new List<Comment>();
+        Likes = new List<Like>();
     }
     public User(string fullName)
     {
@@ -27,6 +30,7 @@ public class User : IdentityUser<Guid>
         Teams = new List<Team>();
         Posts = new List<Post>();
         Comments = new List<Comment>();
+        Likes = new List<Like>();
 
     }
 
