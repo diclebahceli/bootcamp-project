@@ -162,6 +162,33 @@ namespace socialMedia.Persistence.Migrations
                     b.ToTable("Comments");
                 });
 
+            modelBuilder.Entity("socialMedia.Domain.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("PostId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("socialMedia.Domain.Post", b =>
                 {
                     b.Property<int>("Id")
@@ -415,6 +442,25 @@ namespace socialMedia.Persistence.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("socialMedia.Domain.Like", b =>
+                {
+                    b.HasOne("socialMedia.Domain.Post", "Post")
+                        .WithMany("Likes")
+                        .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("socialMedia.Domain.User", "User")
+                        .WithMany("Likes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("socialMedia.Domain.Post", b =>
                 {
                     b.HasOne("socialMedia.Domain.Team", "Team")
@@ -437,6 +483,8 @@ namespace socialMedia.Persistence.Migrations
             modelBuilder.Entity("socialMedia.Domain.Post", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Likes");
                 });
 
             modelBuilder.Entity("socialMedia.Domain.Team", b =>
@@ -447,6 +495,8 @@ namespace socialMedia.Persistence.Migrations
             modelBuilder.Entity("socialMedia.Domain.User", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Likes");
 
                     b.Navigation("Posts");
                 });

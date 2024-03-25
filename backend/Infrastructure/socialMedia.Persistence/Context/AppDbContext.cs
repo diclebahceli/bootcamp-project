@@ -18,6 +18,8 @@ public class AppDbContext : IdentityDbContext<User, Role, Guid>
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Team> Teams { get; set; }
 
+    public DbSet<Like> Likes { get; set; }
+
 
 
 
