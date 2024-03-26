@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using socialMedia.Domain;
 
 namespace socialMedia.Application;
 
-public class GetAllPostsQueryHandler
+public class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQueryRequest, GetAllPostsQueryResponse>
 {
     private IUnitOfWork unityOfWork;
     private readonly IMapper mapper;
@@ -14,9 +15,9 @@ public class GetAllPostsQueryHandler
     }
 
 
-    public async Task<IList<GetAllPostsQueryResponse>> Handle(GetAllTeamsQueryRequest request, CancellationToken cancellationToken)
+    public async Task<GetAllPostsQueryResponse> Handle(GetAllPostsQueryRequest request, CancellationToken cancellationToken)
     {
-        var Posts = await unityOfWork.GetReadRepository<Post>().GetAllAsync(include: q => q.Include(q => q.Team));
+        var posts = await unityOfWork.GetReadRepository<Post>().GetAllAsync(include: q => q.Include(q => q.Team));
         mapper.Config<TeamDto, Team>();
         // List<GetAllTeamsQueryResponse> responses = Teams.Select(p => new GetAllTeamsQueryResponse
         // {
@@ -26,7 +27,11 @@ public class GetAllPostsQueryHandler
         //     StartTime = p.StartTime
         // }).ToList();
 
-        var response = mapper.Map<GetAllPostsQueryResponse, Post>(Posts);
+        var response = new GetAllPostsQueryResponse()
+        {
+            Posts = posts.Select(p => mapper.Map<PostDto, Post>(p)).ToList()
+        };
+
 
         return response;
     }

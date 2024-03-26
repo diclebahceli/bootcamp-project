@@ -6,6 +6,6 @@ public class DeletePostCommandValidator : AbstractValidator<DeletePostCommandReq
 {
     public DeletePostCommandValidator()
     {
-        RuleFor(x => x.Id).GreaterThan(0);
+        RuleFor(x => x.Id).NotEmpty();
     }
 }

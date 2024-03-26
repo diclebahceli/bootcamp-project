@@ -14,7 +14,9 @@ public class CreatePostCommandHandler : BaseHandler, IRequestHandler<CreatePostC
     {
         Post post = new()
         {
+            UserId = request.UserId,
             Description = request.Description,
+            TeamId = request.TeamId
         };
         await unitOfWork.GetWriteRepository<Post>().AddAsync(post);
         await unitOfWork.SaveAsync();

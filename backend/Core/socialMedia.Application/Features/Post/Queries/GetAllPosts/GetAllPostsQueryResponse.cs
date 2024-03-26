@@ -4,7 +4,6 @@ namespace socialMedia.Application;
 
 public class GetAllPostsQueryResponse
 {
-    public string? Description { get; set; }
-    public TeamDto? Team { get; set; }
+    public ICollection<PostDto> Posts { get; set; } = new List<PostDto>();
 
 }
