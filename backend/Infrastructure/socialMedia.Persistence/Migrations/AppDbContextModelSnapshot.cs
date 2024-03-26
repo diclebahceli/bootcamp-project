@@ -202,9 +202,6 @@ namespace socialMedia.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("GroupId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Image")
                         .HasColumnType("TEXT");
 
@@ -272,11 +269,11 @@ namespace socialMedia.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<Guid>("OwnerId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("OwnerId")
+                    b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

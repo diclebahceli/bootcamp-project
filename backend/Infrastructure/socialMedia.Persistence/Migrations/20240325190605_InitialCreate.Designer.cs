@@ -11,7 +11,7 @@ using socialMedia.Persistence;
 namespace socialMedia.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240325160139_InitialCreate")]
+    [Migration("20240325190605_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -205,9 +205,6 @@ namespace socialMedia.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("GroupId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Image")
                         .HasColumnType("TEXT");
 
@@ -275,11 +272,11 @@ namespace socialMedia.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<Guid>("OwnerId")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("OwnerId")
+                    b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
