@@ -3,7 +3,7 @@ using socialMedia.Domain;
 
 namespace socialMedia.Application;
 
-public class GetAllTeamsQueryHandler : IRequestHandler<GetAllTeamsQueryRequest, IList<GetAllTeamsQueryResponse>>
+public class GetAllTeamsQueryHandler : IRequestHandler<GetAllTeamsQueryRequest,GetAllTeamsQueryResponse>
 {
     private IUnitOfWork unityOfWork;
     private readonly IMapper mapper;
@@ -14,9 +14,9 @@ public class GetAllTeamsQueryHandler : IRequestHandler<GetAllTeamsQueryRequest, 
     }
 
 
-    public async Task<IList<GetAllTeamsQueryResponse>> Handle(GetAllTeamsQueryRequest request, CancellationToken cancellationToken)
+    public async Task<GetAllTeamsQueryResponse> Handle(GetAllTeamsQueryRequest request, CancellationToken cancellationToken)
     {
-        var Teams = await unityOfWork.GetReadRepository<Team>().GetAllAsync();
+        var teams = await unityOfWork.GetReadRepository<Team>().GetAllAsync(predicate: x => x.IsDeleted == false);
         // List<GetAllTeamsQueryResponse> responses = Teams.Select(p => new GetAllTeamsQueryResponse
         // {
         //     Title = p.Name,
@@ -25,7 +25,11 @@ public class GetAllTeamsQueryHandler : IRequestHandler<GetAllTeamsQueryRequest, 
         //     Image = p.Image
         // }).ToList();
 
-        var responses = mapper.Map<GetAllTeamsQueryResponse, Team>(Teams);
+        
+        var responses = new GetAllTeamsQueryResponse(){
+            Teams = teams.Select(team => mapper.Map<TeamDto, Team>(team)).ToList()
+        };
+       
 
         return responses;
     }

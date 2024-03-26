@@ -6,7 +6,7 @@ public class UpdateTeamCommandValidator : AbstractValidator<UpdateTeamCommandReq
 {
     public UpdateTeamCommandValidator()
     {
-        RuleFor(x => x.Id).GreaterThan(0);
+        RuleFor(x => x.Id).NotEmpty();
         RuleFor(x => x.Title).NotEmpty().WithName("Title");
         RuleFor(x => x.Description).NotEmpty().WithName("Description");
         RuleFor(x => x.Image).NotEmpty();

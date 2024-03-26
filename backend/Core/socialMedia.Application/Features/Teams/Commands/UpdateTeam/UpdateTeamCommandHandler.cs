@@ -14,7 +14,7 @@ public class UpdateTeamCommandHandler : BaseHandler, IRequestHandler<UpdateTeamC
     {
         var team = await unitOfWork.GetReadRepository<Team>().GetAsync(x => x.Id == request.Id && !x.IsDeleted, enableTracking: true);
         var newObject = mapper.Map<Team, UpdateTeamCommandRequest>(request);
-        team.Name = newObject.Name;
+        team.Title = newObject.Title;
         team.Description = newObject.Description;
         team.Image = newObject.Image;
         await unitOfWork.GetWriteRepository<Team>().UpdateAsync(team);

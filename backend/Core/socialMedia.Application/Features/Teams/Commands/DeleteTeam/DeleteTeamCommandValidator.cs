@@ -6,7 +6,7 @@ public class DeleteTeamCommandValidator : AbstractValidator<DeleteTeamCommandReq
 {
     public DeleteTeamCommandValidator()
     {
-        RuleFor(x => x.Id).GreaterThan(0);
+        RuleFor(x => x.Id).NotEmpty();
     }
 
 }

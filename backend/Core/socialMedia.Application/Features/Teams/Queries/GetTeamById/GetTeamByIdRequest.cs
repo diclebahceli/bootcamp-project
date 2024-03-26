@@ -1,10 +1,8 @@
 ﻿using MediatR;
-using socialMedia.Domain;
 
 namespace socialMedia.Application;
 
-public class DeleteTeamCommandRequest : IRequest<Unit>
+public class GetTeamByIdRequest : IRequest<GetTeamByIdResponse>
 {
     public Guid Id { get; set; }
-
 }
