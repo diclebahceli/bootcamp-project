@@ -3,7 +3,7 @@
 public class Comment : EntityBase
 {
     public string Description { get; set; } = null!;
-    public int? PostId { get; set; }
+    public Guid PostId { get; set; }
     public Post? Post { get; set; }
     public Guid UserId { get; set; }
     public User User { get; set; } = null!;
@@ -13,7 +13,7 @@ public class Comment : EntityBase
 
     }
 
-    public Comment(string description, int postId, Guid userId)
+    public Comment(string description, Guid postId, Guid userId)
     {
         Description = description;
         PostId = postId;

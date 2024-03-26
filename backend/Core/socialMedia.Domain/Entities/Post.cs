@@ -4,7 +4,6 @@ public class Post : EntityBase
 {
     public string Description { get; set; } = null!;
     public string? Image { get; set; }
-    public int GroupId { get; set; }
     public Team Team { get; set; } = null!;
     public int TeamId { get; set; }
     public Guid UserId { get; set; }
@@ -27,7 +26,6 @@ public class Post : EntityBase
         Description = description;
         Image = image;
         CreatedDate = createdDate;
-        GroupId = groupId;
     }
 
 }

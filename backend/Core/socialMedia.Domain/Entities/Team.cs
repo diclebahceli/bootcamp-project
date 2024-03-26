@@ -3,7 +3,7 @@
 public class Team
  : EntityBase
 {
-    public string Name { get; set; } = null!;
+    public string Title { get; set; } = null!;
 
     public Guid OwnerId { get; set; }
     public string Description { get; set; } = null!;
@@ -23,7 +23,7 @@ public class Team
 
         Users = new List<User>();
         Posts = new List<Post>();
-        Name = name;
+        Title = name;
         Description = description;
         Image = image;
     }
