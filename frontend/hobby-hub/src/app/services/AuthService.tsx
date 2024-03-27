@@ -30,6 +30,7 @@ export async function LoginUser(login: LoginModel): Promise<void> {
         "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
       ]
     );
+    localStorage.setItem("email", decoded.email);
   }
 }
 
@@ -48,18 +49,14 @@ export async function RenewToken(): Promise<string> {
 }
 
 export async function Revoke(email: string) {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-  localStorage.removeItem("userId");
+  ClearLocalStorage();
   await axios.post(`${NEXT_PUBLIC_BACKEND_API_URL}/api/Auth/revoke`, {
     email: email,
   });
 }
 
 export async function RevokeAll() {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-  localStorage.removeItem("userId");
+  ClearLocalStorage();
   axios.post(`${NEXT_PUBLIC_BACKEND_API_URL}/api/Auth/revokeall`);
 }
 
@@ -75,6 +72,13 @@ export function SetInterceptors() {
     },
     (error) => Promise.reject(error)
   );
+}
+
+export function ClearLocalStorage() {
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("email");
 }
 
 function isAccessTokenValid(): boolean {

@@ -29,7 +29,7 @@ export async function GetAllTeams(): Promise<Team[]> {
   }
 }
 
-export async function GetTeamById(id: number): Promise<Team> {
+export async function GetTeamById(id: string): Promise<Team> {
   try {
     const response = await axios.get(
       `${NEXT_PUBLIC_BACKEND_API_URL}/api/Team/GetTeamById?Id=${id}`

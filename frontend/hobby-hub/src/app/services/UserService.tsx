@@ -45,7 +45,7 @@ export async function GetUserById(id: string): Promise<User> {
   }
 }
 
-export async function DeleteUser(id: number): Promise<void> {
+export async function DeleteUser(id: string): Promise<void> {
   await axios.delete(
     `${NEXT_PUBLIC_BACKEND_API_URL}/api/User/DeleteUser?Id=${id}`
   );

@@ -1,10 +1,10 @@
 import axios from "axios";
 import { NEXT_PUBLIC_BACKEND_API_URL } from "../utils/config";
-import { Post } from "../Models/post";
+import { PostModel } from "../Models/post";
 import { Comment } from "../Models/comment";
 import { Like } from "../Models/like";
 
-export async function GetAllPosts(): Promise<Post[]> {
+export async function GetAllPosts(): Promise<PostModel[]> {
   try {
     const response = await axios.get(
       `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/GetAllPosts`
@@ -14,9 +14,9 @@ export async function GetAllPosts(): Promise<Post[]> {
     const postsData = responseData.posts;
 
     const Posts = postsData.map(
-      (PostData: any): Post => ({
+      (PostData: any): PostModel => ({
         id: PostData.id,
-        communityId: PostData.teamId,
+        teamId: PostData.teamId,
         description: PostData.description,
         userId: PostData.userId,
         image: PostData.image,
@@ -30,7 +30,7 @@ export async function GetAllPosts(): Promise<Post[]> {
   }
 }
 
-export async function GetPostById(id: number): Promise<Post> {
+export async function GetPostById(id: string): Promise<PostModel> {
   try {
     const response = await axios.get(
       `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/GetPostById?Id=${id}`
@@ -51,9 +51,9 @@ export async function GetPostById(id: number): Promise<Post> {
       })
     );
 
-    const Post: Post = {
+    const Post: PostModel = {
       id: PostData.id,
-      communityId: PostData.teamId,
+      teamId: PostData.teamId,
       description: PostData.description,
       userId: PostData.userId,
       image: PostData.image,
@@ -66,7 +66,7 @@ export async function GetPostById(id: number): Promise<Post> {
   }
 }
 
-export async function GetPostsByTeamId(id: string): Promise<Post[]> {
+export async function GetPostsByTeamId(id: string): Promise<PostModel[]> {
   try {
     const response = await axios.get(
       `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/GetPostsByTeamId?id=${id}`
@@ -76,9 +76,9 @@ export async function GetPostsByTeamId(id: string): Promise<Post[]> {
     const postsData = responseData.posts;
 
     const Posts = postsData.map(
-      (PostData: any): Post => ({
+      (PostData: any): PostModel => ({
         id: PostData.id,
-        communityId: PostData.teamId,
+        teamId: PostData.teamId,
         description: PostData.description,
         userId: PostData.userId,
         image: PostData.image,
@@ -91,8 +91,8 @@ export async function GetPostsByTeamId(id: string): Promise<Post[]> {
   }
 }
 
-export async function AddPost(Post: Post): Promise<Post> {
-  const { description, communityId, userId } = Post;
+export async function AddPost(Post: PostModel): Promise<PostModel> {
+  const { description, teamId: communityId, userId } = Post;
   const response = await axios.post(
     `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/CreatePost`,
     {
@@ -102,17 +102,17 @@ export async function AddPost(Post: Post): Promise<Post> {
     }
   );
   const PostData = response.data.post;
-  const newPost: Post = {
+  const newPost: PostModel = {
     id: PostData.id,
     userId: PostData.userId,
     description: PostData.description,
-    communityId: PostData.teamId,
+    teamId: PostData.teamId,
     image: PostData.image,
   };
   return newPost;
 }
 
-export async function UpdatePost(Post: Post): Promise<Post> {
+export async function UpdatePost(Post: PostModel): Promise<PostModel> {
   const { id, description } = Post;
   const response = await axios.put(
     `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/UpdatePost`,
@@ -122,17 +122,18 @@ export async function UpdatePost(Post: Post): Promise<Post> {
     }
   );
   const PostData = response.data.post;
-  const updatedPost: Post = {
+  console.log(PostData);
+  const updatedPost: PostModel = {
     id: PostData.id,
     userId: PostData.userId,
     description: PostData.description,
-    communityId: PostData.teamId,
+    teamId: PostData.teamId,
     image: PostData.image,
   };
   return updatedPost;
 }
 
-export async function DeletePost(id: number): Promise<void> {
+export async function DeletePost(id: string): Promise<void> {
   await axios.delete(
     `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/DeletePost?Id=${id}`
   );

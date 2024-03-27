@@ -1,6 +1,6 @@
 import axios from "axios";
 import { NEXT_PUBLIC_BACKEND_API_URL } from "../utils/config";
-import { Post } from "../Models/post";
+import { PostModel } from "../Models/post";
 import { Comment } from "../Models/comment";
 import { Like } from "../Models/like";
 
@@ -29,7 +29,7 @@ export async function GetAllComments(): Promise<Comment[]> {
   }
 }
 
-export async function GetCommentById(id: number): Promise<Comment> {
+export async function GetCommentById(id: string): Promise<Comment> {
   try {
     const response = await axios.get(
       `${NEXT_PUBLIC_BACKEND_API_URL}/api/Comment/GetCommentById?CommentId=${id}`
@@ -101,7 +101,7 @@ export async function UpdateComment(Comment: Comment): Promise<Comment> {
       description: description,
     }
   );
-  const CommentData = response.data.Comment;
+  const CommentData = response.data.comment;
   const updatedComment: Comment = {
     id: CommentData.id,
     userId: CommentData.userId,
@@ -111,7 +111,7 @@ export async function UpdateComment(Comment: Comment): Promise<Comment> {
   return updatedComment;
 }
 
-export async function DeleteComment(id: number): Promise<void> {
+export async function DeleteComment(id: string): Promise<void> {
   await axios.delete(
     `${NEXT_PUBLIC_BACKEND_API_URL}/api/Comment/DeleteComment?Id=${id}`
   );
