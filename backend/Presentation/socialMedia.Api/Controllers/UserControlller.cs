@@ -52,7 +52,7 @@ public class UserController : Controller
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateUser([FromBody] UpdateUserCommandRequest request)
+    public async Task<IActionResult> UpdateUser(UpdateUserCommandRequest request)
     {
         var response = await mediator.Send(request);
         return Ok(response);

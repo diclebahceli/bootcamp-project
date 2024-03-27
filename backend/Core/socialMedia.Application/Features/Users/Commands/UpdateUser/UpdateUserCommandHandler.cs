@@ -15,9 +15,9 @@ public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommandRequest
 
     public async Task<Unit> Handle(UpdateUserCommandRequest request, CancellationToken cancellationToken)
     {
-        var user = await userManager.FindByIdAsync(request.User.Id.ToString()) ?? throw new Exception("User not found");
-        user.FullName = request.User.FullName;
-        user.Email = request.User.Email;
+        var user = await userManager.FindByIdAsync(request.Id.ToString()) ?? throw new Exception("User not found");
+        user.FullName = request.FullName;
+        user.Email = request.Email;
         await userManager.UpdateAsync(user);
         return Unit.Value;
     }
