@@ -13,6 +13,22 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+builder.Services.AddCors(options =>
+{
+    var frontendUrl = builder.Configuration.GetValue<string>("frontend-url");
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins(frontendUrl)
+        .AllowAnyMethod()
+        .AllowAnyHeader();
+        // builder
+        // .AllowAnyOrigin()
+        // .AllowAnyMethod()
+        // .AllowAnyHeader();
+    });
+});
+
 var env = builder.Environment;
 builder.Configuration
     .SetBasePath(env.ContentRootPath)
@@ -92,6 +108,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
+app.UseCors();
 
 using (var scope = app.Services.CreateScope())
 {
