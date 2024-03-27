@@ -48,14 +48,14 @@ public class TeamController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetTeamById(GetTeamByIdRequest request)
+    public async Task<IActionResult> GetTeamById([FromQuery] GetTeamByIdRequest request)
     {
         var response = await mediator.Send(request);
         return Ok(response);
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetTeamsByUserId(GetTeamsByUserIdQueryRequest request)
+    public async Task<IActionResult> GetTeamsByUserId([FromQuery] GetTeamsByUserIdQueryRequest request)
     {
         var response = await mediator.Send(request);
         return Ok(response);

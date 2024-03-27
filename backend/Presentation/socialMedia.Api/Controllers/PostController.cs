@@ -16,7 +16,7 @@ public class PostController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetPostLikeCount([FromQuery] int id)
+    public async Task<IActionResult> GetPostLikeCount([FromQuery] Guid id)
     {
         var response = await mediator.Send(new GetAllLikesQueryRequest() { Id = id });
         return Ok(response);
@@ -40,7 +40,7 @@ public class PostController : Controller
 
     //get by team id
     [HttpGet]
-    public async Task<IActionResult> GetPostsByTeamId([FromQuery] int id)
+    public async Task<IActionResult> GetPostsByTeamId([FromQuery] Guid id)
     {
         var response = await mediator.Send(new GetPostsByTeamIdRequest() { TeamId = id });
         return Ok(response);

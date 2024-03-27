@@ -11,7 +11,7 @@ using socialMedia.Persistence;
 namespace socialMedia.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240325190605_InitialCreate")]
+    [Migration("20240326151432_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -121,8 +121,8 @@ namespace socialMedia.Persistence.Migrations
 
             modelBuilder.Entity("TeamUser", b =>
                 {
-                    b.Property<int>("TeamsId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("TeamsId")
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UsersId")
                         .HasColumnType("TEXT");
@@ -136,9 +136,9 @@ namespace socialMedia.Persistence.Migrations
 
             modelBuilder.Entity("socialMedia.Domain.Comment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
@@ -150,8 +150,8 @@ namespace socialMedia.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("PostId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
@@ -167,9 +167,9 @@ namespace socialMedia.Persistence.Migrations
 
             modelBuilder.Entity("socialMedia.Domain.Like", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
@@ -177,8 +177,8 @@ namespace socialMedia.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("PostId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("PostId")
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
@@ -194,9 +194,9 @@ namespace socialMedia.Persistence.Migrations
 
             modelBuilder.Entity("socialMedia.Domain.Post", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
@@ -211,8 +211,8 @@ namespace socialMedia.Persistence.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TeamId")
-                        .HasColumnType("INTEGER");
+                    b.Property<Guid>("TeamId")
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("TEXT");
@@ -255,9 +255,9 @@ namespace socialMedia.Persistence.Migrations
 
             modelBuilder.Entity("socialMedia.Domain.Team", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("TEXT");
@@ -429,7 +429,8 @@ namespace socialMedia.Persistence.Migrations
                 {
                     b.HasOne("socialMedia.Domain.Post", "Post")
                         .WithMany("Comments")
-                        .HasForeignKey("PostId");
+                        .HasForeignKey("PostId")
+                        .IsRequired();
 
                     b.HasOne("socialMedia.Domain.User", "User")
                         .WithMany("Comments")

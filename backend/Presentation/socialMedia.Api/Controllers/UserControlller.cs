@@ -7,11 +7,11 @@ namespace socialMedia.Api;
 
 [Route("api/[controller]/[action]")]
 [ApiController]
-public class UserControlller : Controller
+public class UserController : Controller
 {
     IMediator mediator;
 
-    public UserControlller(IMediator mediator)
+    public UserController(IMediator mediator)
     {
         this.mediator = mediator;
     }
