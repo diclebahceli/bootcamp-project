@@ -1,13 +1,30 @@
 "use client";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { CreateUser, GetAllUsers } from "@/app/services/UserService";
+import { DeleteUser, GetAllUsers } from "@/app/services/UserService";
 import { User } from "@/app/Models/user";
 import { useRouter } from "next/navigation";
 
 const UsersPage = () => {
   const [users, setUsers] = useState<User[]>([]);
   const router = useRouter();
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [deletedId, setDeletedId] = useState<string>();
+
+  const handleDelete = async (userId: string) => {
+    setDeletedId(userId);
+    if (showConfirmation) {
+      // Call the onDelete function to delete the user
+      await DeleteUser(userId);
+      //reload window
+      window.location.reload();
+      // Hide the confirmation dialog
+      setShowConfirmation(false);
+    } else {
+      // Show the confirmation dialog
+      setShowConfirmation(true);
+    }
+  };
 
   // Function to fetch users from the backend API
   const fetchUsers = async () => {
@@ -24,36 +41,14 @@ const UsersPage = () => {
     fetchUsers();
   }, []);
 
-  const handleEditUser = (userId: string) => {};
-
-  function handleCreateUser() {
-    router.push("/admin/users/createUser");
-  }
-
-  const handleDeleteUser = async (userId: string) => {
-    console.log("Delete user:", userId);
-    // Add your delete user logic here
-    try {
-      // Example: Sending a DELETE request to delete the user
-      await axios.delete(`/api/users/${userId}`); // Replace '/api/users/${userId}' with your actual delete endpoint
-      // If successful, you may want to re-fetch the users list or update the state accordingly
-      fetchUsers();
-    } catch (error) {
-      console.error("Error deleting user:", error);
-    }
+  const handleEditUser = (userId: string) => {
+    router.push(`/pages/admin/users/editUser/${userId}`);
   };
 
   return (
     <div className="container">
       <div className="d-flex justify-content-between">
         <h1>Users Page</h1>
-        <button
-          className="btn btn-primary"
-          onClick={() => handleCreateUser()}
-          style={{ height: "3em" }}
-        >
-          Create
-        </button>
       </div>
       <table className="table table-striped">
         <thead>
@@ -79,10 +74,19 @@ const UsersPage = () => {
                 </button>
                 <button
                   className="btn btn-danger"
-                  onClick={() => handleDeleteUser(user.id)}
+                  onClick={() => handleDelete(user.id)}
                 >
                   Delete
                 </button>
+                {showConfirmation && deletedId === user.id ? (
+                  <div>
+                    <p>Are you sure you want to delete this user?</p>
+                    <button onClick={() => handleDelete(user.id)}>Yes</button>
+                    <button onClick={() => setShowConfirmation(false)}>
+                      No
+                    </button>
+                  </div>
+                ) : null}
               </td>
             </tr>
           ))}

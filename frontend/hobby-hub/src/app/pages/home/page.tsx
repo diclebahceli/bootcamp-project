@@ -1,7 +1,8 @@
 "use client";
 import Card from "@/app/Components/card";
 import { Team } from "@/app/Models/team";
-import { GetAllTeams, GetTeamByUserId } from "@/app/services/TeamService";
+import { GetAllTeams, GetTeamsByUserId } from "@/app/services/TeamService";
+import { AddUserToTeam } from "@/app/services/UserService";
 import { useEffect, useState } from "react";
 
 async function getTeams(): Promise<Team[]> {
@@ -18,7 +19,7 @@ const Home = () => {
       try {
         const userId = localStorage.getItem("userId");
         if (userId != null) {
-          const userTeamsData = await GetTeamByUserId(userId);
+          const userTeamsData = await GetTeamsByUserId(userId);
           const teamsData = await GetAllTeams();
           setUserTeams(userTeamsData);
           setTeams(teamsData);
@@ -28,6 +29,7 @@ const Home = () => {
       }
     }
 
+    
     fetchData();
     console.log(userTeams);
     console.log(teams);

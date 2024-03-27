@@ -3,4 +3,5 @@ export interface Comment {
   description: string;
   postId: number;
   userId: number;
+  
 }

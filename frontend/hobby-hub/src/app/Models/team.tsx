@@ -1,4 +1,4 @@
-import { Post } from "./post";
+import { PostModel } from "./post";
 import { User } from "./user";
 
 export interface Team {
@@ -6,7 +6,7 @@ export interface Team {
   title: string;
   description: string;
   ownerId: string;
-  image: string;
+  image?: string;
   users?: User[] | null;
-  posts?: Post[] | null;
+  posts?: PostModel[] | null;
 }

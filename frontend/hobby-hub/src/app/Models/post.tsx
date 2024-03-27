@@ -1,12 +1,12 @@
 import { Comment } from "./comment";
 import { Like } from "./like";
 
-export interface Post {
+export interface PostModel {
   id: string;
   description: string;
   image?: string;
-  communityId: number;
-  userId: number;
+  teamId: string;
+  userId: string;
   comments?: Comment[] | null;
   likes?: Like[] | null;
 }
