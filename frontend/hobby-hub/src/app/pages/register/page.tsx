@@ -1,40 +1,76 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Register } from "@/app/Models/registration";
+import { RegisterUser } from "@/app/services/AuthService";
+import { useRouter } from "next/navigation";
 
-function App() {
+function Register() {
+  const [fullName, setFullName] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [email, setEmail] = useState("");
   const [passwordError, setpasswordError] = useState("");
   const [emailError, setemailError] = useState("");
+  const [fullNameError, setFullNameError] = useState("");
+  const [error, setError] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  const handleValidation = (event) => {
+  const router = useRouter();
+
+  const handleValidation = async () => {
     let formIsValid = true;
 
     if (!email.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
       formIsValid = false;
       setemailError("Email Not Valid");
-      return false;
     } else {
       setemailError("");
       formIsValid = true;
     }
-
+    if (fullName.length < 3) {
+      formIsValid = false;
+      setFullNameError("Name must be atleast 3 characters long");
+    } else {
+      setFullNameError("");
+    }
     if (!password.match(/^[a-zA-Z]{8,22}$/)) {
       formIsValid = false;
-      setpasswordError(
-        "Only Letters and length must best min 8 Chracters and Max 22 Chracters"
-      );
-      return false;
+      setpasswordError("Length must be between 8-22 characters");
     } else {
       setpasswordError("");
       formIsValid = true;
     }
-
+    if (password !== confirmPassword) {
+      formIsValid = false;
+      setpasswordError("Passwords do not match");
+    }
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+    if (formIsValid) {
+      await handleRegister();
+    }
     return formIsValid;
   };
 
-  const loginSubmit = (e) => {
+  const handleRegister = async () => {
+    setError("");
+    setSuccessMessage("");
+    try {
+      const userData: Register = {
+        fullName: fullName,
+        email: email,
+        password: password,
+        confirmedPassword: confirmPassword,
+      };
+      await RegisterUser(userData);
+      setSuccessMessage("Registration successful");
+      router.push("/pages/login");
+    } catch (error: Error | any) {
+      setError(error.message);
+    }
+  };
+
+  const registerSubmit = (e: any) => {
     e.preventDefault();
     handleValidation();
   };
@@ -47,8 +83,25 @@ function App() {
             <div className="card">
               <div className="card-body">
                 <div className="d-flex justify-content-center align-items-center flex-column ">
-                  <h5 className="card-title">Login</h5>
-                  <form id="loginform" onSubmit={loginSubmit}>
+                  <h5 className="card-title">Register</h5>
+                  <form id="registerform" onSubmit={registerSubmit}>
+                    <div className="form-group mb-2">
+                      <label>Full Name</label>
+                      <input
+                        className="form-control"
+                        id="Full Name"
+                        placeholder="Full Name"
+                        value={fullName}
+                        onChange={(event) => setFullName(event.target.value)}
+                      />
+                      <small
+                        id="fullnameHelp"
+                        className="text-danger form-text"
+                      >
+                        {fullNameError}
+                      </small>
+                    </div>
+
                     <div className="form-group  mb-2">
                       <label>Email address</label>
                       <input
@@ -57,21 +110,13 @@ function App() {
                         id="EmailInput"
                         name="EmailInput"
                         aria-describedby="emailHelp"
-                        placeholder="Enter email"
+                        placeholder="Email"
+                        value={email}
                         onChange={(event) => setEmail(event.target.value)}
                       />
                       <small id="emailHelp" className="text-danger form-text">
                         {emailError}
                       </small>
-                    </div>
-                    <div className="form-group mb-2">
-                      <label>Full Name</label>
-                      <input
-                        className="form-control"
-                        id="Full Name"
-                        placeholder="Full Name"
-                        onChange={(event) => setPassword(event.target.value)}
-                      />
                     </div>
 
                     <div className="form-group mb-2">
@@ -81,6 +126,7 @@ function App() {
                         className="form-control"
                         id="exampleInputPassword1"
                         placeholder="Password"
+                        value={password}
                         onChange={(event) => setPassword(event.target.value)}
                       />
                       <small
@@ -98,7 +144,10 @@ function App() {
                         className="form-control"
                         id="exampleInputPassword1"
                         placeholder="Password again"
-                        onChange={(event) => setPassword(event.target.value)}
+                        value={confirmPassword}
+                        onChange={(event) =>
+                          setConfirmPassword(event.target.value)
+                        }
                       />
                       <small
                         id="passworderror"
@@ -107,9 +156,19 @@ function App() {
                         {passwordError}
                       </small>
                     </div>
-                    <button type="submit" className="btn btn-primary">
+                    <button
+                      type="submit"
+                      className="btn btn-primary"
+                      // onClick={handleValidation}
+                    >
                       Submit
                     </button>
+                    <small id="finalMesasge" className="text-success form-text">
+                      {successMessage}
+                    </small>
+                    <small id="error" className="text-danger form-text">
+                      {error}
+                    </small>
                   </form>
                 </div>
               </div>
@@ -120,4 +179,4 @@ function App() {
     </div>
   );
 }
-export default App;
+export default Register;
