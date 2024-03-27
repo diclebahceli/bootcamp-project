@@ -5,7 +5,7 @@ using socialMedia.Domain;
 
 namespace socialMedia.Application;
 
-public class CreateTeamCommandHandler : BaseHandler, IRequestHandler<CreateTeamCommandRequest, Unit>
+public class CreateTeamCommandHandler : BaseHandler, IRequestHandler<CreateTeamCommandRequest, CreateTeamCommandResponse>
 {
     private readonly UserManager<User> userManager;
 
@@ -14,7 +14,7 @@ public class CreateTeamCommandHandler : BaseHandler, IRequestHandler<CreateTeamC
         this.userManager = userManager;
     }
 
-    public async Task<Unit> Handle(CreateTeamCommandRequest request, CancellationToken cancellationToken)
+    public async Task<CreateTeamCommandResponse> Handle(CreateTeamCommandRequest request, CancellationToken cancellationToken)
     {
         var user = await userManager.FindByIdAsync(request.OwnerId.ToString()) ?? throw new Exception("User not found");
         Team team = new()
@@ -32,7 +32,10 @@ public class CreateTeamCommandHandler : BaseHandler, IRequestHandler<CreateTeamC
         await unitOfWork.GetWriteRepository<Team>().AddAsync(team);
         await unitOfWork.SaveAsync();
 
-        return Unit.Value;
+        return new CreateTeamCommandResponse
+        {
+            Team = mapper.Map<TeamDto, Team>(team)
+        };
     }
 
 }

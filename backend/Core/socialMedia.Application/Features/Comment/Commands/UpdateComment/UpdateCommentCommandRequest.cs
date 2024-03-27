@@ -2,7 +2,7 @@
 
 namespace socialMedia.Application;
 
-public class UpdateCommentCommandRequest : IRequest<Unit>
+public class UpdateCommentCommandRequest : IRequest<UpdateCommentCommandResponse>
 {
 
     public Guid Id { get; set; }

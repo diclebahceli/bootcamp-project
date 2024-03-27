@@ -2,7 +2,7 @@
 
 namespace socialMedia.Application;
 
-public class CreatePostCommandRequest : IRequest<Unit>
+public class CreatePostCommandRequest : IRequest<CreatePostCommandResponse>
 {
 
     public string Description { get; set; }

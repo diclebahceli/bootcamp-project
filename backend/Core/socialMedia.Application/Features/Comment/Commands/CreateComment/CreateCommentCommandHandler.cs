@@ -4,13 +4,13 @@ using socialMedia.Domain;
 
 namespace socialMedia.Application;
 
-public class CreateCommentCommandHandler : BaseHandler, IRequestHandler<CreateCommentCommandRequest, Unit>
+public class CreateCommentCommandHandler : BaseHandler, IRequestHandler<CreateCommentCommandRequest, CreateCommentCommandResponse>
 {
     public CreateCommentCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
     {
     }
 
-    public async Task<Unit> Handle(CreateCommentCommandRequest request, CancellationToken cancellationToken)
+    public async Task<CreateCommentCommandResponse> Handle(CreateCommentCommandRequest request, CancellationToken cancellationToken)
     {
         Comment comment = new()
         {
@@ -21,6 +21,10 @@ public class CreateCommentCommandHandler : BaseHandler, IRequestHandler<CreateCo
         await unitOfWork.GetWriteRepository<Comment>().AddAsync(comment);
         await unitOfWork.SaveAsync();
 
-        return Unit.Value;
+        var response = new CreateCommentCommandResponse
+        {
+            Comment = mapper.Map<CommentDto, Comment>(comment)
+        };
+        return response;
     }
 }
