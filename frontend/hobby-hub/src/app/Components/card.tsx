@@ -1,14 +1,14 @@
 import { useRouter } from "next/navigation";
 import React from "react";
-import { Community } from "../Models/community";
+import { Team } from "../Models/team";
 
 // Card component
 export default function Card({
   community,
-  buttonText,
+  userJoined,
 }: {
-  community: Community;
-  buttonText: string;
+  community: Team;
+  userJoined?: boolean;
 }) {
   const router = useRouter();
 
@@ -27,9 +27,11 @@ export default function Card({
         />
         <div className="card-body">
           <h5 className="card-title">{community.title}</h5>
-          <button onClick={handleDetailsClick} className="btn btn-primary">
-            {buttonText}
-          </button>
+          {userJoined ? (
+            <button className="btn btn-primary">Open</button>
+          ) : (
+            <button className="btn btn-primary">Join</button>
+          )}
         </div>
       </div>
     </div>
