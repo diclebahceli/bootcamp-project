@@ -1,21 +1,34 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using socialMedia.Domain;
 
 namespace socialMedia.Application;
 
 public class CreateTeamCommandHandler : BaseHandler, IRequestHandler<CreateTeamCommandRequest, Unit>
 {
+    private readonly UserManager<User> userManager;
 
-    public CreateTeamCommandHandler(IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
+    public CreateTeamCommandHandler(UserManager<User> userManager, IMapper mapper, IUnitOfWork unitOfWork, IHttpContextAccessor httpContextAccessor) : base(mapper, unitOfWork, httpContextAccessor)
     {
-
-
+        this.userManager = userManager;
     }
 
     public async Task<Unit> Handle(CreateTeamCommandRequest request, CancellationToken cancellationToken)
     {
-        Team team = new(request.Title, request.Description, request.Image);
+        var user = await userManager.FindByIdAsync(request.OwnerId.ToString()) ?? throw new Exception("User not found");
+        Team team = new()
+        {
+            OwnerId = request.OwnerId,
+            Title = request.Title,
+            Description = request.Description,
+            Image = request.Image,
+            Users = new List<User>()
+            {
+                user
+            }
+
+        };
         await unitOfWork.GetWriteRepository<Team>().AddAsync(team);
         await unitOfWork.SaveAsync();
 

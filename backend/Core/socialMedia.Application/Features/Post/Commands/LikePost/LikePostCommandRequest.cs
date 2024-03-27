@@ -6,6 +6,6 @@ public class LikePostCommandRequest : IRequest<Unit>
 {
     public Guid UserId { get; set; }
 
-    public int PostId { get; set; }
+    public Guid PostId { get; set; }
 
 }
