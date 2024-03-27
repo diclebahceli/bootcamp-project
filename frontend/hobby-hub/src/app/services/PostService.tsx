@@ -1,89 +1,151 @@
+import axios from "axios";
+import { NEXT_PUBLIC_BACKEND_API_URL } from "../utils/config";
 import { Post } from "../Models/post";
-
-const posts: Post[] = [
-  {
-    id: 1,
-    Description: "Card 1",
-    Image: "",
-    CommunityId: 1,
-    userId: 1,
-  },
-  {
-    id: 2,
-    Description: "Card 2",
-    Image: "",
-    CommunityId: 2,
-    userId: 2,
-  },
-  {
-    id: 3,
-    Description: "Card 3",
-    Image: "",
-    CommunityId: 3,
-    userId: 3,
-  },
-  {
-    id: 4,
-    Description: "Card 4",
-    Image: "",
-    CommunityId: 3,
-    userId: 4,
-  },
-];
+import { Comment } from "../Models/comment";
+import { Like } from "../Models/like";
 
 export async function GetAllPosts(): Promise<Post[]> {
-  return posts;
+  try {
+    const response = await axios.get(
+      `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/GetAllPosts`
+    );
+    const responseData = response.data;
+
+    const postsData = responseData.posts;
+
+    const Posts = postsData.map(
+      (PostData: any): Post => ({
+        id: PostData.id,
+        communityId: PostData.teamId,
+        description: PostData.description,
+        userId: PostData.userId,
+        image: PostData.image,
+      })
+    );
+
+    return Posts;
+  } catch (error) {
+    console.error("Error fetching Posts from backend:", error);
+    throw error;
+  }
 }
 
 export async function GetPostById(id: number): Promise<Post> {
-  // console.log(typeof(id));
-  // console.log(typeof(competitions[0].id));
-  const post = await posts.find((pst) => pst.id == id);
-  if (post) {
-    return post;
+  try {
+    const response = await axios.get(
+      `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/GetPostById?Id=${id}`
+    );
+    const PostData = response.data.post;
+    const comments = response.data.comments.map(
+      (comment: any): Comment => ({
+        id: comment.id,
+        postId: comment.postId,
+        userId: comment.userId,
+        description: comment.description,
+      })
+    );
+    const likes = response.data.likes.map(
+      (like: any): Like => ({
+        userId: like.userId,
+        postId: like.postId,
+      })
+    );
+
+    const Post: Post = {
+      id: PostData.id,
+      communityId: PostData.teamId,
+      description: PostData.description,
+      userId: PostData.userId,
+      image: PostData.image,
+      comments: comments,
+      likes: likes,
+    };
+    return Post;
+  } catch (error: Error | any) {
+    throw new Error("Error fetching Post from backend ", error);
   }
-  throw new Error(`Competition with id ${id} not found`);
 }
 
-export async function GetPostByUserId(communityId: number): Promise<Post[]> {
-  const post = await posts.filter((pst) => pst.CommunityId == communityId);
-  if (post) {
-    return post;
+export async function GetPostsByTeamId(id: string): Promise<Post[]> {
+  try {
+    const response = await axios.get(
+      `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/GetPostsByTeamId?id=${id}`
+    );
+    const responseData = response.data;
+
+    const postsData = responseData.posts;
+
+    const Posts = postsData.map(
+      (PostData: any): Post => ({
+        id: PostData.id,
+        communityId: PostData.teamId,
+        description: PostData.description,
+        userId: PostData.userId,
+        image: PostData.image,
+      })
+    );
+
+    return Posts;
+  } catch (error: Error | any) {
+    throw new Error("Error fetching Posts from backend:", error);
   }
-  throw new Error(`Competition with id ${communityId} not found`);
 }
 
-
-
-export async function GetPostByCommunityId(
-  communityId: number
-): Promise<Post[]> {
-  const post = await posts.filter((pst) => pst.CommunityId == communityId);
-
-  if (post) {
-    return post;
-  }
-  throw new Error(`Competition with id ${communityId} not found`);
+export async function AddPost(Post: Post): Promise<Post> {
+  const { description, communityId, userId } = Post;
+  const response = await axios.post(
+    `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/CreatePost`,
+    {
+      description: description,
+      userId: userId,
+      teamId: communityId,
+    }
+  );
+  const PostData = response.data.post;
+  const newPost: Post = {
+    id: PostData.id,
+    userId: PostData.userId,
+    description: PostData.description,
+    communityId: PostData.teamId,
+    image: PostData.image,
+  };
+  return newPost;
 }
 
-export async function AddPost(post: Post): Promise<Post> {
-  posts.push(post);
-  return post;
+export async function UpdatePost(Post: Post): Promise<Post> {
+  const { id, description } = Post;
+  const response = await axios.put(
+    `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/UpdatePost`,
+    {
+      id: id,
+      description: description,
+    }
+  );
+  const PostData = response.data.post;
+  const updatedPost: Post = {
+    id: PostData.id,
+    userId: PostData.userId,
+    description: PostData.description,
+    communityId: PostData.teamId,
+    image: PostData.image,
+  };
+  return updatedPost;
 }
 
-export async function DeletePost(id: number): Promise<Post[]> {
-  const post = await posts.filter((pst) => pst.id != id);
-  if (post) {
-    return post;
-  }
-  throw new Error(`Competition with id ${id} not found`);
+export async function DeletePost(id: number): Promise<void> {
+  await axios.delete(
+    `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/DeletePost?Id=${id}`
+  );
 }
 
-export async function UpdatePost(post: Post): Promise<Post> {
-  const postIndex = posts.findIndex((pst) => pst.id == post.id);
-  if (postIndex !== -1) {
-    posts[postIndex] = post;
-    return post;
-  }
-  throw new Error(`Competition with id ${post.id} not found`);
+export async function LikePost(like: Like): Promise<void> {
+  const { postId, userId } = like;
+  const response = await axios.post(
+    `${NEXT_PUBLIC_BACKEND_API_URL}/api/Post/LikePost`,
+    {
+      postId: postId,
+      userId: userId,
+    }
+  );
 }
+// Path: hobby-hub/src/app/services/PostService.tsx

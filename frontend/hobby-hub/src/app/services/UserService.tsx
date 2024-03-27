@@ -28,75 +28,60 @@ export async function GetAllUsers(): Promise<User[]> {
   }
 }
 
-export async function CreateUser(user: User): Promise<User> {
+export async function GetUserById(id: string): Promise<User> {
   try {
-    const response = await axios.post(
-      `${NEXT_PUBLIC_BACKEND_API_URL}/api/User/CreateUser`,
-      user
+    const response = await axios.get(
+      `${NEXT_PUBLIC_BACKEND_API_URL}/api/User/GetUserById?Id=${id}`
     );
-    const responseData = response.data;
+    const userData = response.data.user;
     return {
-      id: responseData.user.id,
-      name: responseData.user.fullName,
-      email: responseData.user.email,
-      image: responseData.user.image,
+      id: userData.id,
+      name: userData.fullName,
+      email: userData.email,
+      image: userData.image,
     };
-  } catch (error) {
-    console.error("Error creating user:", error);
-    throw error;
+  } catch (error: Error | any) {
+    throw new Error("Error fetching user from backend ", error);
   }
 }
 
-export async function GetUserByEmail(email: string): Promise<User> {
-  const user = await users.find((usr) => usr.email == email);
-  if (user) {
-    return user;
-  }
-  throw new Error(`User with id ${email} not found`);
+export async function DeleteUser(id: number): Promise<void> {
+  await axios.delete(
+    `${NEXT_PUBLIC_BACKEND_API_URL}/api/User/DeleteUser?Id=${id}`
+  );
 }
 
-export async function DeleteUser(id: number): Promise<User[]> {
-  const user = await users.filter((usr) => usr.id != id);
-  if (user) {
-    return user;
-  }
-  throw new Error(`User with id ${id} not found`);
+export async function UpdateUser(user: User): Promise<void> {
+  const { id, email, name } = user;
+  const response = await axios.put(
+    `${NEXT_PUBLIC_BACKEND_API_URL}/api/User/UpdateUser`,
+    {
+      id: id,
+      email: email,
+      fullname: name,
+    }
+  );
 }
 
-export async function UpdateUser(user: User): Promise<User> {
-  const userIndex = users.findIndex((usr) => usr.id == user.id);
-  if (userIndex !== -1) {
-    users[userIndex] = user;
-    return user;
-  }
-  throw new Error(`User with id ${user.id} not found`);
+export async function AddUserToTeam(
+  userId: string,
+  teamId: string
+): Promise<void> {
+  await axios.put(`${NEXT_PUBLIC_BACKEND_API_URL}/api/User/AddUserToTeam`, {
+    userId: userId,
+    teamId: teamId,
+  });
 }
 
-export async function GetUserByCommunityId(
-  communityId: number
-): Promise<User[]> {
-  const user = await users.filter((usr) => usr.id == communityId);
-
-  if (user) {
-    return user;
-  }
-  throw new Error(`User with id ${communityId} not found`);
-}
-
-export async function GetUserByPostId(postId: number): Promise<User[]> {
-  const user = await users.filter((usr) => usr.id == postId);
-
-  if (user) {
-    return user;
-  }
-  throw new Error(`User with id ${postId} not found`);
-}
-
-export async function GetUserByCommentId(commentId: number): Promise<User[]> {
-  const user = await users.filter((usr) => usr.id == commentId);
-
-  if (user) {
-    return user;
-  }
-  throw new Error(`User with id ${commentId} not found`);
+export async function RemoveUserFromTeam(
+  userId: string,
+  teamId: string
+): Promise<void> {
+  await axios.put(
+    `${NEXT_PUBLIC_BACKEND_API_URL}/api/User/RemoveUserFromTeam`,
+    {
+      userId: userId,
+      teamId: teamId,
+    }
+  );
 }
