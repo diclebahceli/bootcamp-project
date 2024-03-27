@@ -51,7 +51,7 @@ public class CommentController : Controller
     }
 
     [HttpDelete]
-    public async Task<IActionResult> DeleteComment([FromBody] DeleteCommentCommandRequest request)
+    public async Task<IActionResult> DeleteComment([FromQuery] DeleteCommentCommandRequest request)
     {
         var response = await mediator.Send(request);
         return Ok(response);

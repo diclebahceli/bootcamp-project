@@ -65,16 +65,16 @@ public class PostController : Controller
     [HttpPut]
     public async Task<IActionResult> UpdatePost([FromBody] UpdatePostCommandRequest request)
     {
-        await mediator.Send(request);
-        return Ok();
+        var response = await mediator.Send(request);
+        return Ok(response);
     }
 
     //delete    
     [HttpDelete]
-    public async Task<IActionResult> DeletePost([FromBody] DeletePostCommandRequest request)
+    public async Task<IActionResult> DeletePost([FromQuery] DeletePostCommandRequest request)
     {
-        await mediator.Send(request);
-        return Ok();
+        var response = await mediator.Send(request);
+        return Ok(response);
     }
 
 
