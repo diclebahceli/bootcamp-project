@@ -17,15 +17,8 @@ public class GetAllPostsQueryHandler : IRequestHandler<GetAllPostsQueryRequest, 
 
     public async Task<GetAllPostsQueryResponse> Handle(GetAllPostsQueryRequest request, CancellationToken cancellationToken)
     {
-        var posts = await unityOfWork.GetReadRepository<Post>().GetAllAsync(include: q => q.Include(q => q.Team));
-        mapper.Config<TeamDto, Team>();
-        // List<GetAllTeamsQueryResponse> responses = Teams.Select(p => new GetAllTeamsQueryResponse
-        // {
-        //     Title = p.Title,
-        //     Description = p.Description,
-        //     EndTime = p.EndTime,
-        //     StartTime = p.StartTime
-        // }).ToList();
+        var posts = await unityOfWork.GetReadRepository<Post>().GetAllAsync(predicate: x => !x.IsDeleted, enableTracking: false);
+
 
         var response = new GetAllPostsQueryResponse()
         {
