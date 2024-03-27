@@ -53,13 +53,7 @@ export async function GetPostByUserId(communityId: number): Promise<Post[]> {
   throw new Error(`Competition with id ${communityId} not found`);
 }
 
-export async function GetPostByDescription(description: string): Promise<Post> {
-  const post = await posts.find((pst) => pst.Description == description);
-  if (post) {
-    return post;
-  }
-  throw new Error(`Competition with id ${description} not found`);
-}
+
 
 export async function GetPostByCommunityId(
   communityId: number

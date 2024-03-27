@@ -1,53 +1,50 @@
+import axios from "axios";
 import { User } from "../Models/user";
-
-const users: User[] = [
-  {
-    id: 1,
-    name: "User 1",
-    email: "",
-    password: "",
-    image: "",
-  },
-  {
-    id: 2,
-    name: "User 2",
-    email: "",
-    password: "",
-    image: "",
-  },
-  {
-    id: 3,
-    name: "User 3",
-    email: "",
-    password: "",
-    image: "",
-  },
-  {
-    id: 4,
-    name: "User 4",
-    email: "",
-    password: "",
-    image: "",
-  },
-];
+import { NEXT_PUBLIC_BACKEND_API_URL } from "../utils/config";
 
 export async function GetAllUsers(): Promise<User[]> {
-  return users;
-}
+  try {
+    const response = await axios.get(
+      `${NEXT_PUBLIC_BACKEND_API_URL}/api/User/GetAllUsers`
+    );
+    const responseData = response.data;
 
-export async function GetUserById(id: number): Promise<User> {
-  // console.log(typeof(id));
-  // console.log(typeof(competitions[0].id));
-  const user = await users.find((usr) => usr.id == id);
-  if (user) {
-    return user;
+    const usersData = responseData.users;
+
+    const users = usersData.map((userData: any): User => {
+      return {
+        id: userData.id,
+        name: userData.fullName,
+        email: userData.email,
+        image: userData.image,
+      };
+    });
+
+    // Return the array of teams
+    return users;
+  } catch (error) {
+    console.error("Error fetching teams from backend:", error);
+    throw error;
   }
-  throw new Error(`User with id ${id} not found`);
 }
 
-export async function AddUser(user: User): Promise<User> {
-  users.push(user);
-  return user;
+export async function CreateUser(user: User): Promise<User> {
+  try {
+    const response = await axios.post(
+      `${NEXT_PUBLIC_BACKEND_API_URL}/api/User/CreateUser`,
+      user
+    );
+    const responseData = response.data;
+    return {
+      id: responseData.user.id,
+      name: responseData.user.fullName,
+      email: responseData.user.email,
+      image: responseData.user.image,
+    };
+  } catch (error) {
+    console.error("Error creating user:", error);
+    throw error;
+  }
 }
 
 export async function GetUserByEmail(email: string): Promise<User> {

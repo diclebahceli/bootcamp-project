@@ -1,4 +1,14 @@
-export async function getComments(postId: number): Promise<Comment[]> {
+
+
+export async function GetAllComments(postId: number): Promise<Comment[]> {
+  const response = await fetch(`${apiUrl}/comments/${postId}`);
+  const comments = await response.json();
+  return comments;
+}
+
+export async function GetAllCommentsFromPostId(
+  postId: number
+): Promise<Comment[]> {
   const response = await fetch(`${apiUrl}/comments/${postId}`);
   const comments = await response.json();
   return comments;
@@ -40,5 +50,10 @@ export async function getCommentById(id: number): Promise<Comment> {
   return comment;
 }
 
+export async function GetCommentsByPostId(postId: number): Promise<Comment[]> {
+  const response = await fetch(`${apiUrl}/comments/${postId}`);
+  const comments = await response.json();
+  return comments;
+}
 
 // Path: hobby-hub/src/app/Models/comment.tsx
