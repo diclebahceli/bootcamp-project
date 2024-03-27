@@ -1,10 +1,10 @@
 "use client";
 import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { LoginUser } from "@/app/services/AuthService";
+import { LoginUser, SetInterceptors } from "@/app/services/AuthService";
 import { useRouter } from "next/navigation";
 import { LoginModel } from "@/app/Models/login";
 import { jwtDecode } from "jwt-decode";
+import Link from "next/link";
 
 function Login() {
   const [password, setPassword] = useState("");
@@ -24,7 +24,7 @@ function Login() {
       setemailError("");
       formIsValid = true;
     }
-    if (!password.match(/^[a-zA-Z]{8,22}$/)) {
+    if (!password.length || password.length < 6 || password.length > 22) {
       formIsValid = false;
       setpasswordError(
         "Only Letters and length must best min 8 Chracters and Max 22 Chracters"
@@ -49,24 +49,13 @@ function Login() {
       };
 
       await LoginUser(userData);
+      SetInterceptors();
+      console.log(localStorage.getItem("userId"));
       setSuccessMessage("Login successful");
 
-      const storedAccessTokenJSON = localStorage.getItem("accessToken");
-      const storedRefreshTokenJSON = localStorage.getItem("refreshToken");
-      if (storedAccessTokenJSON != null) {
-        const decodedAccessToken = jwtDecode(
-          storedAccessTokenJSON
-        ) as DecodedAccessToken;
-        const nameidentifier =
-          decodedAccessToken[
-            "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"
-          ];
-        localStorage.setItem("userId", nameidentifier);
-        console.log(nameidentifier);
-      }
       router.push("/pages/home");
     } catch (error: Error | any) {
-      setError(error.message);
+      setError("Wrong password or email");
     }
   };
 
@@ -107,9 +96,20 @@ function Login() {
                       {passwordError}
                     </small>
                   </div>
-                  <button type="submit" className="btn btn-primary">
-                    Submit
-                  </button>
+                  <div className="d-flex flex-row justify-content-between align-items-center">
+                    <button type="submit" className="btn btn-primary">
+                      Submit
+                    </button>
+                    <Link href={"/pages/register"} className="fs-6">
+                      or Signup
+                    </Link>
+                  </div>
+                  <small id="finalMesasge" className="text-success form-text">
+                    {successMessage}
+                  </small>
+                  <small id="error" className="text-danger form-text">
+                    {error}
+                  </small>
                 </form>
               </div>
             </div>

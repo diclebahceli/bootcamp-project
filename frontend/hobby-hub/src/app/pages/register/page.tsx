@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Register } from "@/app/Models/registration";
+import { RegisterInfo } from "@/app/Models/registration";
 import { RegisterUser } from "@/app/services/AuthService";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 function Register() {
   const [fullName, setFullName] = useState("");
@@ -34,7 +35,7 @@ function Register() {
     } else {
       setFullNameError("");
     }
-    if (!password.match(/^[a-zA-Z]{8,22}$/)) {
+    if (!password.length || password.length < 8 || password.length > 22) {
       formIsValid = false;
       setpasswordError("Length must be between 8-22 characters");
     } else {
@@ -56,11 +57,10 @@ function Register() {
     setError("");
     setSuccessMessage("");
     try {
-      const userData: Register = {
+      const userData: RegisterInfo = {
         fullName: fullName,
         email: email,
         password: password,
-        confirmedPassword: confirmPassword,
       };
       await RegisterUser(userData);
       setSuccessMessage("Registration successful");
@@ -156,13 +156,14 @@ function Register() {
                         {passwordError}
                       </small>
                     </div>
-                    <button
-                      type="submit"
-                      className="btn btn-primary"
-                      // onClick={handleValidation}
-                    >
-                      Submit
-                    </button>
+                    <div className="d-flex flex-row justify-content-between align-items-center">
+                      <button type="submit" className="btn btn-primary">
+                        Register
+                      </button>
+                      <Link href={"/pages/login"} className="fs-6">
+                        or Login
+                      </Link>
+                    </div>
                     <small id="finalMesasge" className="text-success form-text">
                       {successMessage}
                     </small>
